@@ -3,6 +3,14 @@ import { ScrollView, View, Text, FlatList } from "react-native";
 import { Card, ListItem } from "react-native-elements";
 import { ABOUTS } from "../shared/about";
 import { LEADERS } from "../shared/leaders";
+import { connect } from "react-redux";
+import { baseUrl } from "../shared/baseUrl";
+
+const mapStateToProps = (state) => {
+  return {
+    leaders: state.leaders,
+  };
+};
 
 function RenderItem(props) {
   const item = props.item;
@@ -19,17 +27,15 @@ function RenderItem(props) {
   }
 }
 
-const renderMenuItem = ({ item, index }) => {
+const renderLeader = ({ item, index }) => {
   return (
-    
-      <ListItem
-        key={index}
-        title={item.name}
-        subtitle={item.description}
-        hideChevron={true}
-        leftAvatar={{ source: require("./images/alberto.png") }}
-      />
-    
+    <ListItem
+      key={index}
+      title={item.name}
+      subtitle={item.description}
+      hideChevron={true}
+      leftAvatar={{ source: { uri: baseUrl + item.image } }}
+    />
   );
 };
 
@@ -52,14 +58,14 @@ class About extends Component {
           item={this.state.abouts.filter((about) => about.featured)[0]}
         />
         <Card title="Corporate Leadership">
-        <FlatList
-          data={this.state.leaders}
-          renderItem={renderMenuItem}
-          keyExtractor={(item) => item.id.toString()}
-        />
+          <FlatList
+            data={this.props.leaders.leaders}
+            renderItem={renderLeader}
+            keyExtractor={(item) => item.id.toString()}
+          />
         </Card>
       </ScrollView>
     );
   }
 }
-export default About;
+export default connect(mapStateToProps)(About);
