@@ -5,7 +5,7 @@ import { ABOUTS } from "../shared/about";
 import { LEADERS } from "../shared/leaders";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
-import { Loading } from './LoadingComponent';
+import { Loading } from "./LoadingComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -54,58 +54,39 @@ class About extends Component {
   };
   render() {
     if (this.props.leaders.isLoading) {
-      return(
-          <ScrollView>
-              <History />
-              <Card
-                  title='Corporate Leadership'>
-                  <Loading />
-              </Card>
-          </ScrollView>
+      return (
+        <ScrollView>
+          <History />
+          <Card title="Corporate Leadership">
+            <Loading />
+          </Card>
+        </ScrollView>
       );
-  }
-  else if (this.props.leaders.errMess) {
-      return(
-          <ScrollView>
-              <History />
-              <Card
-                  title='Corporate Leadership'>
-                  <Text>{this.props.leaders.errMess}</Text>
-              </Card>
-          </ScrollView>
+    } else if (this.props.leaders.errMess) {
+      return (
+        <ScrollView>
+          <History />
+          <Card title="Corporate Leadership">
+            <Text>{this.props.leaders.errMess}</Text>
+          </Card>
+        </ScrollView>
       );
-  }
-  else {
-      return(
-           <ScrollView>
-        <RenderItem
-          item={this.state.abouts.filter((about) => about.featured)[0]}
-        />
-        <Card title="Corporate Leadership">
-          <FlatList
-            data={this.props.leaders.leaders}
-            renderItem={renderLeader}
-            keyExtractor={(item) => item.id.toString()}
+    } else {
+      return (
+        <ScrollView>
+          <RenderItem
+            item={this.state.abouts.filter((about) => about.featured)[0]}
           />
-        </Card>
-      </ScrollView>
+          <Card title="Corporate Leadership">
+            <FlatList
+              data={this.props.leaders.leaders}
+              renderItem={renderLeader}
+              keyExtractor={(item) => item.id.toString()}
+            />
+          </Card>
+        </ScrollView>
       );
+    }
   }
-}
-    // return (
-    //   <ScrollView>
-    //     <RenderItem
-    //       item={this.state.abouts.filter((about) => about.featured)[0]}
-    //     />
-    //     <Card title="Corporate Leadership">
-    //       <FlatList
-    //         data={this.props.leaders.leaders}
-    //         renderItem={renderLeader}
-    //         keyExtractor={(item) => item.id.toString()}
-    //       />
-    //     </Card>
-    //   </ScrollView>
-    // );
-  
 }
 export default connect(mapStateToProps)(About);
