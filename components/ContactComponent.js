@@ -8,9 +8,7 @@ function RenderItem(props) {
 
   if (item != null) {
     return (
-      <Card
-        title="Contact Information"
-      >
+      <Card title="Contact Information">
         <Text style={{ margin: 5 }}>{item.name}</Text>
         <Text style={{ margin: 5 }}>{item.image}</Text>
         <Text style={{ margin: 5 }}>{item.label}</Text>
