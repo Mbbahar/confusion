@@ -267,13 +267,13 @@ function MainNavigatorDrawer() {
           ),
         }}
       />
-      <MainNavigator.Screen
-        name="Reserve Table"
-        component={ReservationNavigatorScreen}
+       <MainNavigator.Screen
+        name="My Favorites"
+        component={FavoritesNavigatorScreen}
         options={{
           drawerIcon: ({ tintColor }) => (
             <Icon
-              name="cutlery"
+              name="heart"
               type="font-awesome"
               size={24}
               color={tintColor}
@@ -282,12 +282,12 @@ function MainNavigatorDrawer() {
         }}
       />
       <MainNavigator.Screen
-        name="My Favorites"
-        component={FavoritesNavigatorScreen}
+        name="Reserve Table"
+        component={ReservationNavigatorScreen}
         options={{
           drawerIcon: ({ tintColor }) => (
             <Icon
-              name="heart"
+              name="cutlery"
               type="font-awesome"
               size={24}
               color={tintColor}
