@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import {
   View,
   Text,
@@ -31,10 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function RenderDish({ dish, favorite, markFavorite, openCommentForm }) {
-  handleViewRef = (ref) => (this.view = ref);
+  const viewRef = useRef(null);
 
   const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
     if (dx < -200) return true;
+    else return false;
+  };
+  const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+    if (dx > 0) return true;
     else return false;
   };
   const panResponder = PanResponder.create({
@@ -42,16 +46,12 @@ function RenderDish({ dish, favorite, markFavorite, openCommentForm }) {
       return true;
     },
     onPanResponderGrant: () => {
-      this.view
-        .rubberBand(1000)
-        .then((endState) =>
-          console.log(endState.finished ? "finished" : "cancelled")
-        );
+      viewRef.current.rubberBand(1000);
     },
 
     onPanResponderEnd: (e, gestureState) => {
       console.log("pan responder end", gestureState);
-      if (recognizeDrag(gestureState))
+      if (recognizeDrag(gestureState)) {
         Alert.alert(
           "Add Favorite",
           "Are you sure you wish to add " + dish.name + " to favorite?",
@@ -69,8 +69,11 @@ function RenderDish({ dish, favorite, markFavorite, openCommentForm }) {
           ],
           { cancelable: false }
         );
-
-      return true;
+        return true;
+      } else if (recognizeComment(gestureState)) {
+        openCommentForm();
+        return true;
+      }
     },
   });
   if (dish != null) {
@@ -79,7 +82,7 @@ function RenderDish({ dish, favorite, markFavorite, openCommentForm }) {
         animation="fadeInDown"
         duration={2000}
         delay={1000}
-        ref={this.handleViewRef}
+        ref={viewRef}
         {...panResponder.panHandlers}
       >
         <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>

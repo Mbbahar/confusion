@@ -57,7 +57,7 @@ class About extends Component {
     if (this.props.leaders.isLoading) {
       return (
         <ScrollView>
-          <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+          <Animatable.View animation="fadeInDown" duration={2000} delay={1000} >
           <Card title="Corporate Leadership">
             <Loading />
           </Card>
@@ -67,7 +67,7 @@ class About extends Component {
     } else if (this.props.leaders.errMess) {
       return (
         <ScrollView>
-          <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+          <Animatable.View animation="fadeInDown" duration={2000} delay={1000} > 
           
           <Card title="Corporate Leadership">
             <Text>{this.props.leaders.errMess}</Text>

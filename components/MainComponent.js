@@ -14,7 +14,8 @@ import Dishdetail from "./DishdetailComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutComponent";
 import Reservation from "./ReservationComponent";
-import Favorites from './FavoriteComponent';
+import Favorites from "./FavoriteComponent";
+import Login from "./LoginComponent";
 
 import { connect } from "react-redux";
 import {
@@ -210,6 +211,24 @@ function FavoritesNavigatorScreen() {
   );
 }
 
+const LoginNavigator = createStackNavigator();
+function LoginNavigatorScreen() {
+  return (
+    <LoginNavigator.Navigator
+      initialRouteName="Login"
+      screenOptions={HeaderOptions}
+    >
+      <LoginNavigator.Screen
+        name="Login"
+        component={Login}
+        options={({ navigation }) => ({
+          headerLeft: () => <MenuIcon navigation={navigation} />,
+        })}
+      />
+    </LoginNavigator.Navigator>
+  );
+}
+
 const MainNavigator = createDrawerNavigator();
 function MainNavigatorDrawer() {
   return (
@@ -220,6 +239,20 @@ function MainNavigatorDrawer() {
       }}
       drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
     >
+      <MainNavigator.Screen
+        name="Login"
+        component={LoginNavigatorScreen}
+        options={{
+          drawerIcon: ({ tintColor }) => (
+            <Icon
+              name="sign-in"
+              type="font-awesome"
+              size={24}
+              color={tintColor}
+            />
+          ),
+        }}
+      />
       <MainNavigator.Screen
         name="Home"
         component={HomeNavigatorScreen}
@@ -267,7 +300,7 @@ function MainNavigatorDrawer() {
           ),
         }}
       />
-       <MainNavigator.Screen
+      <MainNavigator.Screen
         name="My Favorites"
         component={FavoritesNavigatorScreen}
         options={{

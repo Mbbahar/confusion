@@ -23,7 +23,7 @@ class Menu extends Component {
 
     const renderMenuItem = ({ item, index }) => {
       return (
-        <Animatable.View animation="fadeInRightBig" duration={2000}> 
+        <Animatable.View animation="fadeInRightBig" duration={2000} > 
         <Tile
           key={index}
           title={item.name}
